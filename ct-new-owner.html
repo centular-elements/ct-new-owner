@@ -1,0 +1,279 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-form/iron-form.html">
+<link rel="import" href="../paper-input/paper-input.html">
+<link rel="import" href="../paper-button/paper-button.html">
+<link rel="import" href="../paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../paper-dropdown-menu/paper-dropdown-menu.html">
+<link rel="import" href="../paper-listbox/paper-listbox.html">
+<link rel="import" href="../paper-item/paper-item.html">
+
+<!--
+`ct-new-owner`
+Element for creating a new owner
+
+@demo demo/index.html 
+-->
+
+<dom-module id="ct-new-owner">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <template>
+    <style is="custom-style" >
+      :host {
+        --paper-input-container:{
+          border-top: 1px solid #ccc;
+          border-left: 1px solid #ccc;
+          border-right: 1px solid #ccc;
+          border-bottom: none;
+          padding: 0 !important;
+          margin-bottom: 24px;
+        };
+        --paper-input-container-input: {
+          margin-left: 10px;
+        };
+        --paper-input-container-label: {
+          margin-left: 10px;
+        };
+      }
+      .main-section {
+        margin-top:20px;
+      }
+      paper-dropdown-menu.custom-dropdown {
+        width: 100%;
+        --paper-input-container: {
+          border-top:1px solid #ccc;
+          border-left:1px solid #ccc;
+          border-right:1px solid #ccc;
+          border-bottom: none;
+          padding: 0;
+          margin-bottom: 8px;
+        };
+        --paper-input-container-input: {
+          padding-left: 10px;
+        };
+      }
+    </style>
+
+    <div class="main-section">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-xs-12">
+            <h4>Register New Owner</h4>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6 col-xs-12">
+            <paper-dropdown-menu
+                    class="custom-dropdown"
+                    name="ownerType"
+                    label="Owner Type"
+                    always-float-label
+                    noink
+                    no-animations
+                    required
+                    placeholder="Please select an owner type"
+                    on-selected-item-changed="_selectedOwnerTypeChanged">
+              <paper-listbox class="dropdown-content" id="ownerTypeInput" attr-for-selected="key" selected="person">
+                <paper-item key="person">Natural Person</paper-item>
+                <paper-item key="jointAccount">Joint Account</paper-item>
+                <paper-item key="company">Company</paper-item>
+                <paper-item key="trust">Trust</paper-item>
+              </paper-listbox>
+            </paper-dropdown-menu>
+          </div>
+        </div>
+      </div>
+      <form is="iron-form"
+            id="form"
+            method="post"
+            disable-native-validation-ui
+            novalidate>
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-sm-6 col-xs-12">
+              <div class="form-group">
+                <paper-input
+                        class="ct-label ct-bordered"
+                        label="First Name"
+                        type="text"
+                        name="firstName"
+                        value=""
+                        required
+                        auto-validate
+                        error-message="Required">
+
+                </paper-input>
+              </div>
+            </div>
+            <div class="col-sm-6 col-xs-12">
+              <div class="form-group">
+                <paper-input
+                        label="Last Name"
+                        type="text"
+                        name="lastName"
+                        value=""
+                        required
+                        auto-validate
+                        error-message="Required">
+
+                </paper-input>
+              </div>
+            </div>
+            <div class="col-sm-6 col-xs-12">
+              <div class="form-group">
+                <paper-input
+                        label="Email"
+                        type="email"
+                        name="email"
+                        value="{{email}}"
+                        required$="{{_computeRequired(email)}}"
+                        auto-validate
+                        error-message="Invalid email address">
+
+                </paper-input>
+              </div>
+            </div>
+            <div class="col-sm-6 col-xs-12">
+              <div class="form-group">
+                <paper-input
+                        label="Mobile"
+                        type="text"
+                        prevent-invalid-input
+                        name="mobile"
+                        value="{{mobile}}"
+                        auto-validate
+                        allowed-pattern="[0-9 +]"
+                        char-counter
+                        maxlength="10"
+                        required$="{{_computeRequired(mobile)}}"
+                        error-message="Invalid mobile number">
+                </paper-input>
+              </div>
+            </div>
+            <div class="col-sm-6 col-xs-12">
+              <div class="form-group">
+                <paper-input
+                        label="ID Number"
+                        type="text"
+                        name="idNumber"
+                        value="">
+                </paper-input>
+              </div>
+            </div>
+            <div class="col-sm-6 col-xs-12">
+              <div class="form-group">
+                <paper-input
+                        label="Legal Entity Name"
+                        type="text"
+                        name="legalEntityName"
+                        value=""
+                        required$="[[ _required ]]"
+                        auto-validate
+                        error-message="Required"
+                        hidden$="{{ _hidden }}">
+                </paper-input>
+              </div>
+            </div>
+            <div class="col-sm-6 col-xs-12">
+              <div class="form-group">
+                <paper-input
+                        label="Registration Number"
+                        type="text"
+                        name="registrationNumber"
+                        value=""
+                        required$="[[ _required ]]"
+                        auto-validate
+                        error-message="Required"
+                        hidden$="{{ _hidden }}">
+                </paper-input>
+              </div>
+            </div>
+            <div class="col-sm-6 col-xs-12">
+              <div class="form-group">
+                <paper-input
+                        label="VAT Number"
+                        type="text"
+                        name="vatNumber"
+                        value=""
+                        required$="[[ _required ]]"
+                        auto-validate
+                        error-message="Required"
+                        hidden$="{{ _hidden }}">
+                </paper-input>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12">
+              <paper-button class="element-background element-color btn btn-primary pull-right" on-tap="_submitForm" raised>Register</paper-button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'ct-new-owner',
+
+      properties: {
+        userGroup: Array,
+      },
+      listeners: {
+        'iron-form-presubmit':'_formHandler'
+      },
+
+      _submitForm : function() {
+        this.$.form.submit();
+      },
+
+      _formHandler : function(e) {
+        e.preventDefault();
+        var form = this.$.form;
+
+        if (form.validate()) {
+          var formData = form.serialize(),
+                  data = {};
+          data.firstName = formData.firstName;
+          data.lastName = formData.lastName;
+          data.email = formData.email;
+          data.mobile = formData.mobile;
+          data.idNumber = formData.idNumber;
+
+          if (this._ownerType === 'company') {
+            data.company = {
+              legalEntityName: formData.legalEntityName,
+              registrationNumber: formData.registrationNumber,
+              vatNumber: formData.vatNumber
+            };
+          }
+          if (this._ownerType === 'trust') {
+            data.trust = {
+              legalEntityName: formData.legalEntityName,
+              registrationNumber: formData.registrationNumber,
+              vatNumber: formData.vatNumber
+            };
+          }
+
+          this.fire('registerOwner', data);
+        }
+      },
+
+      _computeRequired: function(value) {
+        return !value.length;
+      },
+
+      _selectedOwnerTypeChanged: function(e) {
+        if (e.target.selectedItem) {
+          this._ownerType = e.target.selectedItem.getAttribute('key');
+          this._hidden = !(this._ownerType === 'company' || this._ownerType === 'trust');
+          this._required = !this._hidden;
+        }
+      }
+
+
+    });
+  </script>
+</dom-module>
