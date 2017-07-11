@@ -20,6 +20,7 @@ Element for creating a new owner
   <template>
     <style is="custom-style" >
       :host {
+
         --paper-input-container:{
           border-top: 1px solid #ccc;
           border-left: 1px solid #ccc;
@@ -28,16 +29,21 @@ Element for creating a new owner
           padding: 0 !important;
           margin-bottom: 24px;
         };
+
         --paper-input-container-input: {
+
           margin-left: 10px;
         };
+
         --paper-input-container-label: {
           margin-left: 10px;
         };
       }
+
       .main-section {
         margin-top:20px;
       }
+
       paper-dropdown-menu.custom-dropdown {
         width: 100%;
         --paper-input-container: {
@@ -57,7 +63,7 @@ Element for creating a new owner
     <div class="main-section">
       <div class="container-fluid">
         <div class="row">
-          <div class="col-sm-6 col-xs-6">
+          <div class="col-sm-6 col-xs-12">
             <paper-dropdown-menu
                     class="custom-dropdown"
                     name="ownerType"
@@ -85,7 +91,7 @@ Element for creating a new owner
             novalidate>
         <div class="container-fluid">
           <div class="row">
-            <div class="col-sm-6 col-xs-6">
+            <div class="col-sm-6 col-xs-12">
               <div class="form-group">
                 <paper-input
                         class="ct-label ct-bordered"
@@ -100,7 +106,7 @@ Element for creating a new owner
                 </paper-input>
               </div>
             </div>
-            <div class="col-sm-6 col-xs-6">
+            <div class="col-sm-6 col-xs-12">
               <div class="form-group">
                 <paper-input
                         label="Last Name"
@@ -114,7 +120,7 @@ Element for creating a new owner
                 </paper-input>
               </div>
             </div>
-            <div class="col-sm-6 col-xs-6">
+            <div class="col-sm-6 col-xs-12">
               <div class="form-group">
                 <paper-input
                         label="Email"
@@ -128,7 +134,7 @@ Element for creating a new owner
                 </paper-input>
               </div>
             </div>
-            <div class="col-sm-6 col-xs-6">
+            <div class="col-sm-6 col-xs-12">
               <div class="form-group">
                 <paper-input
                         label="Mobile"
@@ -145,7 +151,7 @@ Element for creating a new owner
                 </paper-input>
               </div>
             </div>
-            <div class="col-sm-6 col-xs-6">
+            <div class="col-sm-6 col-xs-12">
               <div class="form-group">
                 <paper-input
                         label="ID Number"
@@ -155,7 +161,7 @@ Element for creating a new owner
                 </paper-input>
               </div>
             </div>
-            <div class="col-sm-6 col-xs-6">
+            <div class="col-sm-6 col-xs-12">
               <div class="form-group">
                 <paper-input
                         label="Legal Entity Name"
@@ -169,7 +175,7 @@ Element for creating a new owner
                 </paper-input>
               </div>
             </div>
-            <div class="col-sm-6 col-xs-6">
+            <div class="col-sm-6 col-xs-12">
               <div class="form-group">
                 <paper-input
                         label="Registration Number"
@@ -183,7 +189,7 @@ Element for creating a new owner
                 </paper-input>
               </div>
             </div>
-            <div class="col-sm-6 col-xs-6">
+            <div class="col-sm-6 col-xs-12">
               <div class="form-group">
                 <paper-input
                         label="VAT Number"
@@ -199,7 +205,7 @@ Element for creating a new owner
             </div>
           </div>
           <div class="row">
-            <div class="col-xs-6">
+            <div class="col-xs-12">
               <paper-button class="element-background element-color btn btn-primary pull-right" on-tap="_submitForm" raised>Register</paper-button>
             </div>
           </div>
@@ -213,7 +219,7 @@ Element for creating a new owner
     Polymer({
 
       is: 'ct-new-owner',
-      
+
       listeners: {
         'iron-form-presubmit':'_formHandler'
       },
@@ -229,10 +235,10 @@ Element for creating a new owner
         if (form.validate()) {
           var formData = form.serialize(),
                   data = {};
-          data.firstName = formData.firstName;
-          data.lastName = formData.lastName;
+          data.name = formData.firstName;
+          data.surname = formData.lastName;
           data.email = formData.email;
-          data.mobile = formData.mobile;
+          data.phone = formData.mobile;
           data.idNumber = formData.idNumber;
 
           if (this._ownerType === 'company') {
